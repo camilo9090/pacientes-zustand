@@ -7,10 +7,11 @@ import Error from "./Error"
 export default function PatientForm() {
 
     const {addPatient}=usePAtientStore()
-    const { register, handleSubmit, formState: { errors } } = useForm<DraftPatients>()
+    const { register, handleSubmit, formState: { errors},reset } = useForm<DraftPatients>()
 
     const registerPatienst = (data:DraftPatients) => {
        addPatient(data)
+       reset()
 
     }
     return (
