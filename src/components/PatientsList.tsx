@@ -1,9 +1,9 @@
-import { usePAtientStore } from "../store/store"
+import { usePatientStore } from "../store/store"
 import PatienDitails from "./PatienDitails"
 
 export default function PatientsList() {
 
-  const patients = usePAtientStore(state => state.patients)
+  const patients = usePatientStore(state => state.patients)
   console.log(patients)
   return (
 

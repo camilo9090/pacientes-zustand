@@ -1,6 +1,8 @@
 
+import { usePatientStore } from '../store/store'
 import { Patients } from '../types'
 import PatientDitailsItem from './PatientDitailsItem'
+
 
 type PatienDitailsProps = {
   patient: Patients
@@ -8,6 +10,9 @@ type PatienDitailsProps = {
 }
 
 export default function PatienDitails({ patient }: PatienDitailsProps) {
+
+  const deletePAtiensStore = usePatientStore((state) => state.delePatients)
+  const getPatientsByid = usePatientStore((state) => state.getPatientsByid)
   return (
     <div className='mx-5 my-10 px-5 py-10 bg-white shadow-md rounded-xl'>
 
@@ -22,15 +27,19 @@ export default function PatienDitails({ patient }: PatienDitailsProps) {
 
       </p>
 
-      <div className='flex justify-between  mt-10'>
+      <div className='flex flex-col md:flex-row justify-between gap-5 mt-10'>
 
-        <button type='button'
+        <button
+          type='button'
+          onClick={()=>getPatientsByid(patient.id)}
           className=' bg-indigo-600  px-10 py-2 hover:bg-indigo-700 text-white font-bold uppercase rounded-lg'>
 
           Editar
         </button>
 
-        <button type='button'
+        <button
+          type='button'
+          onClick={() => deletePAtiensStore(patient.id)}
           className=' bg-red-600 px-10 py-2 hover:bg-red-700 text-white font-bold uppercase rounded-lg'>
 
           Eliminar
