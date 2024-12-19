@@ -1,32 +1,38 @@
 
 import { useForm } from "react-hook-form"
-import { Patients,DraftPatients } from "../types"
+import { Patients, DraftPatients } from "../types"
 import { usePatientStore } from "../store/store"
 
 import Error from "./Error"
 import { useEffect } from "react"
 export default function PatientForm() {
 
-    const addPatient=usePatientStore(state=>state.addPatient)
-    const activeId=usePatientStore(state=>state.activeId)
-    const patients=usePatientStore(state=>state.patients)
-    const { register, handleSubmit,setValue, formState: { errors},reset } = useForm<DraftPatients>()
+    const addPatient = usePatientStore(state => state.addPatient)
+    const activeId = usePatientStore(state => state.activeId)
+    const patients = usePatientStore(state => state.patients)
+    const updatePatient = usePatientStore(state => state.updatePatient)
+    const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm<DraftPatients>()
 
 
-    useEffect(()=>{
-if (activeId) {
-    const activePatient=patients.filter(patient=>patient.id==activeId)[0]
-    setValue('name', activePatient.name)
-    setValue('caretaker', activePatient.caretaker)
-    setValue('email', activePatient.email)
-    setValue('date', activePatient.date)
-    setValue('symptoms', activePatient.symptoms)
-}
-    },[activeId])
-    const registerPatienst = (data:DraftPatients) => {
-       addPatient(data)
-       reset()
+    useEffect(() => {
+        if (activeId) {
+            const activePatient = patients.filter(patient => patient.id == activeId)[0]
+            setValue('name', activePatient.name)
+            setValue('caretaker', activePatient.caretaker)
+            setValue('email', activePatient.email)
+            setValue('date', activePatient.date)
+            setValue('symptoms', activePatient.symptoms)
+        }
+    }, [activeId])
+    const registerPatienst = (data: DraftPatients) => {
+        if (activeId) {
+            updatePatient(data)
+        } else {
+            addPatient(data)
+          
+        }
 
+        reset()
     }
     return (
         <div className="md:w-1/2 lg:w-2/5 mx-5">
